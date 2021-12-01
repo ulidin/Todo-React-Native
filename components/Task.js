@@ -25,12 +25,12 @@ const Task = props => {
     setTaskItems(itemsCopy);
   };
 
-  const renderTask = () => {
+  const renderTask = (item, index) => {
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
           <View style={styles.square}></View>
-          <Text style={styles.itemText}>{props.text}</Text>
+          <Text style={styles.itemText}>{item}</Text>
         </View>
         <TouchableOpacity key={index} onPress={() => completeTask(index)}>
           <View style={styles.circular} />
@@ -45,7 +45,10 @@ const Task = props => {
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
           {taskItems.map((item, index) => {
-            return <Task text={item} />;
+            {
+              /* return <Task text={item} />; */
+              renderTask(item, index);
+            }
           })}
         </View>
       </View>
