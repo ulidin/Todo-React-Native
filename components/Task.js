@@ -25,15 +25,26 @@ const Task = props => {
     setTaskItems(itemsCopy);
   };
 
+  const editTask = index => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    itemsCopy.push(task);
+    setTaskItems(itemsCopy);
+  };
+
   const renderTask = (item, index) => {
+    console.log();
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
           <View style={styles.square}></View>
           <Text style={styles.itemText}>{item}</Text>
         </View>
+        <TouchableOpacity key={index} onPress={() => editTask(index)}>
+          <View style={styles.circularEdit} />
+        </TouchableOpacity>
         <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-          <View style={styles.circular} />
+          <View style={styles.circularDelete} />
         </TouchableOpacity>
       </View>
     );
@@ -45,10 +56,7 @@ const Task = props => {
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
           {taskItems.map((item, index) => {
-            {
-              /* return <Task text={item} />; */
-              renderTask(item, index);
-            }
+            return renderTask(item, index);
           })}
         </View>
       </View>
@@ -98,7 +106,14 @@ const styles = StyleSheet.create({
   itemText: {
     maxWidth: '80%',
   },
-  circular: {
+  circularDelete: {
+    width: 12,
+    height: 12,
+    borderColor: 'red',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+  circularEdit: {
     width: 12,
     height: 12,
     borderColor: '#55BCF6',
